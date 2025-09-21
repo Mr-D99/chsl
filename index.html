@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SSC CHSL Mock Test & Guide</title>
+  <meta name="description" content="Online mock tests and study guide for SSC CHSL — practice papers, progress tracker, and study tips." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#00d1ff; --muted:#9aa4b2; --glass: rgba(255,255,255,0.04);
+      --radius:16px; --maxw:1100px;
+      --glass-2: rgba(255,255,255,0.03);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial; background: radial-gradient(1200px 600px at 10% 10%, rgba(0,209,255,0.06), transparent), linear-gradient(180deg,#071026 0%,var(--bg) 100%); color:#e6eef6}
+    a{color:inherit}
+
+    .wrap{max-width:var(--maxw);margin:40px auto;padding:32px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#6b5bff);display:grid;place-items:center;font-weight:700;color:#042233}
+    .brand h1{font-size:18px;margin:0}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{padding:8px 12px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:14px}
+    nav a.cta{background:linear-gradient(90deg,var(--accent),#6b5bff);color:#02121a;font-weight:700}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:stretch;margin-top:28px}
+    .hero-left{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .kicker{display:inline-block;padding:6px 10px;background:var(--glass);border-radius:999px;color:var(--accent);font-weight:700;font-size:13px;margin-bottom:14px}
+    .hero-left h2{margin:0 0 10px;font-size:28px;line-height:1.05}
+    .lead{color:var(--muted);margin-bottom:18px}
+    .cta-row{display:flex;gap:12px}
+    .btn{padding:12px 16px;border-radius:12px;font-weight:700;border:none;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#6b5bff);color:#02121a}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+    .stats{display:flex;gap:14px;margin-top:22px}
+    .stat{background:var(--glass);padding:14px;border-radius:12px;min-width:120px;text-align:center}
+    .stat strong{display:block;font-size:18px}
+
+    /* HERO RIGHT CARD */
+    .card{position:relative;padding:22px;border-radius:20px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(2,6,23,0.6);overflow:hidden}
+    /* animated wave */
+    .wave{position:absolute;inset:0;opacity:0.18;filter:blur(20px);background:radial-gradient(circle at 70% 10%, #6b5bff55, transparent 10%), radial-gradient(circle at 10% 90%, #00d1ff33, transparent 10%);mix-blend-mode:screen}
+    .mini-quiz{position:relative;z-index:2}
+    .quiz-title{font-size:16px;margin:0 0 8px}
+    .progress{height:10px;background:var(--glass);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#6b5bff);border-radius:999px;transition:width 700ms ease}
+
+    /* features */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+    .feature{background:var(--glass-2);padding:14px;border-radius:12px;min-height:86px;display:flex;flex-direction:column;gap:8px}
+    .feature h4{margin:0}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* guide section */
+    .guide{margin-top:36px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:22px;border-radius:16px}
+    .accordion{display:grid;gap:10px}
+    .acc-item{background:var(--card);padding:12px;border-radius:12px}
+    .acc-head{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .acc-body{max-height:0;overflow:hidden;transition:max-height 320ms ease;padding-top:0}
+
+    /* sample test modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.85));z-index:60}
+    .modal.open{display:flex}
+    .modal-card{width:min(760px,95%);background:linear-gradient(180deg,#03101a, #071626);padding:18px;border-radius:14px}
+    .q{padding:14px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);margin-bottom:12px}
+    .options{display:grid;gap:10px}
+    .opt{padding:10px;border-radius:8px;background:var(--glass);cursor:pointer}
+    .timer{font-weight:700}
+
+    footer{margin-top:36px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr;}.features{grid-template-columns:repeat(2,1fr)}nav{display:none}.wrap{margin:20px auto;padding:18px}}
+    @media (max-width:560px){.features{grid-template-columns:1fr}}
+
+    /* small tasteful animation */
+    .pulse{animation:pulse 3s linear infinite}
+    @keyframes pulse{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+    /* subtle entrance */
+    .reveal{opacity:0;transform:translateY(10px);transition:all 700ms cubic-bezier(.2,.9,.3,1)}
+    .reveal.show{opacity:1;transform:none}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">SSC</div>
+        <div>
+          <h1>SSC CHSL Prep</h1>
+          <div class="muted" style="font-size:12px">Mock tests • Strategy • Progress</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#guide">Guide</a>
+        <a href="#about">About</a>
+        <a class="cta" id="startBtn">Start Free Test</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left reveal" id="leftHero">
+        <span class="kicker">SSC CHSL — Practice & Mastery</span>
+        <h2>Beat the exam with focused mock tests and guided study plans</h2>
+        <p class="lead">Timed mocks, previous-year pattern practice, analytics that show *what* to study next. Built for aspirants targeting Tier‑1 placements.</p>
+        <div class="cta-row">
+          <button class="btn primary" id="ctaStart">Take a Mock — Free</button>
+          <button class="btn ghost" id="guideBtn">View Guide</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong id="usersCount">12.3k</strong>
+            <div class="muted">Active learners</div>
+          </div>
+          <div class="stat">
+            <strong id="testsCount">2.1k</strong>
+            <div class="muted">Mock tests</div>
+          </div>
+          <div class="stat">
+            <strong id="passRate">68%</strong>
+            <div class="muted">Avg. success rate</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card mini-quiz reveal" id="rightHero">
+        <div class="wave"></div>
+        <div class="mini-quiz">
+          <h3 class="quiz-title">Quick sample: Quant section</h3>
+          <p class="muted">See where you stand — 5 questions, 3 minutes.</p>
+          <div style="margin-top:12px">
+            <div class="progress" aria-hidden="true"><i id="progFill"></i></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="muted">Time left <span class="timer" id="miniTimer">03:00</span></div>
+            <button class="btn primary" id="tryNow">Try Sample</button>
+          </div>
+
+          <div class="features" style="margin-top:18px">
+            <div class="feature pulse">
+              <h4>Timed mocks</h4>
+              <div class="muted">Real exam interface</div>
+            </div>
+            <div class="feature">
+              <h4>Detailed reports</h4>
+              <div class="muted">Strengths & weaknesses</div>
+            </div>
+            <div class="feature">
+              <h4>Revision planner</h4>
+              <div class="muted">Daily micro‑goals</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+    <section id="features" class="reveal" style="margin-top:28px">
+      <h3>Why aspirants love it</h3>
+      <div class="features" style="margin-top:12px">
+        <div class="feature">
+          <h4>Exam‑like interface</h4>
+          <div class="muted">Adaptive timers, negative marking toggle</div>
+        </div>
+        <div class="feature">
+          <h4>Previous years' pattern</h4>
+          <div class="muted">Curated questions from past papers</div>
+        </div>
+        <div class="feature">
+          <h4>Topic tests</h4>
+          <div class="muted">Focused practice by topic</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide" class="guide reveal">
+      <h3>SSC CHSL Strategy Guide</h3>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:14px">
+        <div style="flex:1;min-width:260px">
+          <p class="muted">A quick 3‑step plan to prioritize high‑yield topics and improve accuracy.</p>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <ol style="margin:0 0 10px 18px">
+            <li>Master basics: arithmetic, grammar, and reasoning concepts.</li>
+            <li>Daily micro‑tests: 30 minutes of timed practice.</li>
+            <li>Weekly full mock + report review.</li>
+          </ol>
+          <button class="btn ghost" id="downloadPlan">Download 7‑day plan</button>
+        </div>
+      </div>
+
+      <div style="margin-top:18px" class="accordion">
+        <div class="acc-item">
+          <div class="acc-head"> <strong>Quant Tips</strong> <span class="muted">+ read</span></div>
+          <div class="acc-body"><p class="muted">Focus on number systems, percentage, ratio‑proportion and practice speed with mock sections.</p></div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head"> <strong>English Tips</strong> <span class="muted">+ read</span></div>
+          <div class="acc-body"><p class="muted">Revise grammar rules, practice cloze tests and para jumbles daily.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- modal for sample test -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Sample Test</h3>
+          <div><span class="muted">Time left </span> <span id="mainTimer" class="timer">03:00</span></div>
+        </div>
+        <div id="questions" style="margin-top:12px">
+          <!-- JS will populate -->
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+          <button class="btn ghost" id="closeModal">Close</button>
+          <button class="btn primary" id="submitTest">Submit</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div>&copy; <span id="year"></span> SSC CHSL Prep</div>
+      <div class="muted">Built with ❤️ — practice smart, not just hard</div>
+    </footer>
+  </div>
+
+  <script>
+    // small utilities
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
+
+    // reveal on load
+    window.addEventListener('load', ()=>{
+      ['#leftHero','#rightHero','.reveal'].forEach((sel,i)=>{
+        setTimeout(()=>{ $$(sel).forEach(el=>el.classList.add('show')) }, 120 + i*160);
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+
+    // progress demo (mini card)
+    let prog=0; const fill = $('#progFill');
+    function miniProgress(){ prog = Math.min(100, prog+Math.floor(Math.random()*18)+6); fill.style.width = prog + '%'; }
+    setInterval(miniProgress, 1600);
+
+    // mini timer
+    let miniT=180; const miniTimerEl = $('#miniTimer');
+    function formatTime(s){ const m=Math.floor(s/60), sec=s%60; return (m<10?'0'+m:m)+':' + (sec<10?'0'+sec:sec); }
+    setInterval(()=>{ if(miniT>0){ miniT--; miniTimerEl.textContent = formatTime(miniT); } },1000);
+
+    // open modal and run sample quiz
+    const modal = $('#modal');
+    function openModal(){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); startSample(); }
+    function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); stopSample(); }
+    $('#tryNow').addEventListener('click', openModal);
+    $('#startBtn').addEventListener('click', openModal);
+    $('#ctaStart').addEventListener('click', openModal);
+    $('#closeModal').addEventListener('click', closeModal);
+
+    // sample questions (small 5-qs set)
+    const sampleQs = [
+      {q:'If 3x+5=20, x = ?', opts:['5','6','10','7'], a:1},
+      {q:'Synonym of "abundant"?', opts:['scarce','plentiful','thin','rare'], a:1},
+      {q:'Find next number: 2,4,8,16, ?', opts:['24','30','32','40'], a:2},
+      {q:'Choose correct sentence', opts:['He don\'t like it.','He doesn\'t like it.','He not like it.','He isn\'t like it.'], a:1},
+      {q:'If a train runs 60 km in 1.5 hours, speed = ?', opts:['30 km/h','40 km/h','45 km/h','60 km/h'], a:2}
+    ];
+
+    let answers = Array(sampleQs.length).fill(null);
+    let mainTime = 180; let mainTimerInterval;
+
+    function renderQuestions(){
+      const container = $('#questions'); container.innerHTML='';
+      sampleQs.forEach((it, idx)=>{
+        const div = document.createElement('div'); div.className='q';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>Q${idx+1}.</strong><div class='muted' id='qtag${idx}'>Unanswered</div></div><p style='margin:8px 0'>${it.q}</p>`;
+        const opts = document.createElement('div'); opts.className='options';
+        it.opts.forEach((o,oi)=>{
+          const op = document.createElement('div'); op.className='opt'; op.tabIndex=0; op.textContent = o;
+          op.addEventListener('click', ()=>{ answers[idx]=oi; updateTag(idx); highlightAnswer(div, oi); });
+          op.addEventListener('keydown',(e)=>{ if(e.key === 'Enter') { answers[idx]=oi; updateTag(idx); highlightAnswer(div, oi);} });
+          opts.appendChild(op);
+        });
+        div.appendChild(opts); container.appendChild(div);
+      });
+    }
+
+    function highlightAnswer(questionDiv, chosenIndex){
+      const opts = questionDiv.querySelectorAll('.opt');
+      opts.forEach((o,i)=> o.style.outline = i===chosenIndex ? '2px solid rgba(0,209,255,0.18)' : 'none');
+    }
+
+    function updateTag(i){ const t = $('#qtag'+i); t.textContent = answers[i]===null ? 'Unanswered' : 'Answered'; }
+
+    function startSample(){ answers = Array(sampleQs.length).fill(null); renderQuestions(); mainTime = 180; $('#mainTimer').textContent = formatTime(mainTime);
+      mainTimerInterval = setInterval(()=>{
+        if(mainTime<=0){ clearInterval(mainTimerInterval); finishTest(); }
+        else { mainTime--; $('#mainTimer').textContent = formatTime(mainTime); }
+      },1000);
+    }
+    function stopSample(){ clearInterval(mainTimerInterval); }
+
+    function finishTest(){ stopSample(); // grade
+      let score=0; for(let i=0;i<sampleQs.length;i++){ if(answers[i]===sampleQs[i].a) score++; }
+      closeModal(); showScore(score);
+    }
+    $('#submitTest').addEventListener('click', finishTest);
+
+    function showScore(score){
+      // small toast-like summary
+      const t = document.createElement('div'); t.style.position='fixed'; t.style.right='20px'; t.style.bottom='20px'; t.style.padding='14px'; t.style.borderRadius='12px'; t.style.background='linear-gradient(90deg,var(--accent),#6b5bff)'; t.style.color='#02121a'; t.style.boxShadow='0 6px 30px rgba(2,6,23,0.5)'; t.innerHTML = `<strong>Score: ${score}/${sampleQs.length}</strong><div style='font-size:13px;color:rgba(2,6,23,0.6)'>Review your weak areas in the guide.</div>`;
+      document.body.appendChild(t); setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(20px)'; },3200); setTimeout(()=>t.remove(),4200);
+    }
+
+    // accordion behavior
+    $$('.acc-item').forEach(it=>{
+      const head = it.querySelector('.acc-head'); const body = it.querySelector('.acc-body');
+      head.addEventListener('click', ()=>{
+        const open = body.style.maxHeight && parseInt(body.style.maxHeight) > 0;
+        $$('.acc-body').forEach(b=>b.style.maxHeight = null);
+        if(!open){ body.style.maxHeight = body.scrollHeight + 'px'; }
+      });
+    });
+
+    // download plan -> create a tiny text file and trigger download
+    $('#downloadPlan').addEventListener('click', ()=>{
+      const plan = `7-day SSC CHSL Micro Plan\n\nDay1: Number systems + 15 Qs timed\nDay2: English grammar + vocab 20 Qs\nDay3: Reasoning + puzzles 30 mins\nDay4: Topic revision + 30 Qs\nDay5: Timed full mock\nDay6: Review mistakes + formula list\nDay7: Quick mock + relaxation`; 
+      const blob = new Blob([plan],{type:'text/plain'}); const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='ssc-chsl-7-day-plan.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // small accessibility: allow Esc to close modal
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    // bump counters (demo)
+    function animateCounter(id, from, to, ms){ const el = document.getElementById(id); const start = Date.now(); const r = setInterval(()=>{ const p = Math.min(1,(Date.now()-start)/ms); const v = Math.floor(from + (to-from)*p); el.textContent = id==='passRate'? v+'%': v.toLocaleString(); if(p===1) clearInterval(r); }, 30); }
+    animateCounter('usersCount', 8000, 12300, 900);
+    animateCounter('testsCount', 800, 2100, 900);
+    animateCounter('passRate', 30, 68, 900);
+
+  </script>
+</body>
+</html>
+
