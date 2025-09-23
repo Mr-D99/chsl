@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC CHSL Mock Test</title>
+    <style>
+        :root {
+            --bg-primary: #0f1724;
+            --bg-secondary: #1a2332;
+            --accent-cyan: #00d1ff;
+            --accent-indigo: #6b5bff;
+            --text-primary: #e6eef6;
+            --text-muted: #9aa4b2;
+            --correct: #22c55e;
+            --wrong: #ef4444;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Start Page Styles */
+        #start-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-indigo));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 2px rgba(0, 209, 255, 0.2);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 91, 255, 0.4);
+        }
+
+        .instructions {
+            margin-top: 30px;
+            text-align: left;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-width: 500px;
+        }
+
+        .instructions h2 {
+            margin-bottom: 15px;
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+        }
+
+        .instructions ul {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Test Page Styles */
+        #test-page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .test-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .test-info div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .test-content {
+            display: flex;
+            gap: 20px;
+            min-height: calc(100vh - 150px);
+        }
+
+        .question-container {
+            flex: 1;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .question-number {
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .hindi-text {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 209, 255, 0.2);
+        }
+
+        .option.selected {
+            border-color: var(--accent-cyan);
+            background-color: rgba(0, 209, 255, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--correct);
+            background-color: rgba(34, 197, 94, 0.1);
+        }
+
+        .option.wrong {
+            border-color: var(--wrong);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .option-label {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .side-menu {
+            width: 300px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            color: var(--accent-cyan);
+            margin: 15px 0 10px;
+            font-size: 1.1rem;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .question-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .question-btn:hover {
+            background-color: rgba(0, 209, 255, 0.1);
+        }
+
+        .question-btn.answered {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .question-btn.current {
+            border: 2px solid var(--accent-indigo);
+        }
+
+        .submit-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 91, 255, 0.4);
+        }
+
+        /* Result Page Styles */
+        #result-page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .result-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-header h1 {
+            color: var(--accent-cyan);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .result-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .summary-item h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .summary-item p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .section-analysis {
+            margin-bottom: 30px;
+        }
+
+        .section-analysis h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .analysis-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+
+        .analysis-item h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .analysis-item ul {
+            padding-left: 20px;
+        }
+
+        .analysis-item li {
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .answer-key {
+            margin-top: 30px;
+        }
+
+        .answer-key h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .answer-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .answer-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .answer-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .user-answer.correct {
+            color: var(--correct);
+            font-weight: 600;
+        }
+
+        .user-answer.wrong {
+            color: var(--wrong);
+            font-weight: 600;
+        }
+
+        .correct-answer {
+            color: var(--correct);
+            font-weight: 600;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .test-content {
+                flex-direction: column;
+            }
+            
+            .side-menu {
+                width: 100%;
+                max-height: 300px;
+                order: -1;
+                margin-bottom: 20px;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .question-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .result-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card, .instructions {
+                padding: 20px;
+            }
+            
+            .test-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .question-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .result-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Page -->
+    <div id="start-page">
+        <div class="logo">SSC CHSL Mock Test</div>
+        <div class="card">
+            <h1>Enter Your Details</h1>
+            <form id="user-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="test-id">Test ID</label>
+                    <input type="text" id="test-id" value="TSTYT1" readonly>
+                </div>
+                <button type="submit" class="btn">Start Test</button>
+            </form>
+        </div>
+        <div class="instructions">
+            <h2>Test Instructions</h2>
+            <ul>
+                <li><strong>4 Sections:</strong> A (English), B (Mathematics), C (Reasoning), D (General Awareness)</li>
+                <li><strong>25 Questions</strong> per section (100 total)</li>
+                <li><strong>2 Marks</strong> per question (200 total marks)</li>
+                <li><strong>Negative Marking:</strong> -0.5 marks for each wrong answer</li>
+                <li>Use Next/Previous buttons or question numbers to navigate</li>
+                <li>Click Submit when you've completed the test</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Test Page -->
+    <div id="test-page">
+        <div class="container">
+            <div class="test-header">
+                <div class="test-info">
+                    <div><span id="candidate-name-display">Candidate Name</span></div>
+                    <div>Test ID: <span id="test-id-display">TSTYT1</span></div>
+                    <div>Section: <span id="current-section">A</span></div>
+                </div>
+                <div class="timer" id="timer">01:00:00</div>
+            </div>
+            
+            <div class="test-content">
+                <div class="side-menu">
+                    <button class="menu-toggle" id="menu-toggle">Show/Hide Menu</button>
+                    <div id="menu-content">
+                        <div class="section-title">Section A: English</div>
+                        <div class="question-grid" id="section-a-questions">
+                            <!-- Question buttons will be generated here -->
+                        </div>
+                        
+                        <div class="section-title">Section B: Mathematics</div>
+                        <div class="question-grid" id="section-b-questions">
+                            <!-- Question buttons will be generated here -->
+                        </div>
+                        
+                        <div class="section-title">Section C: Reasoning</div>
+                        <div class="question-grid" id="section-c-questions">
+                            <!-- Question buttons will be generated here -->
+                        </div>
+                        
+                        <div class="section-title">Section D: General Awareness</div>
+                        <div class="question-grid" id="section-d-questions">
+                            <!-- Question buttons will be generated here -->
+                        </div>
+                        
+                        <div class="submit-container">
+                            <button class="submit-btn" id="submit-test">Submit Test</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-number">Question <span id="current-question-num">1</span> of 100</div>
+                    <div class="question-text" id="question-text-en">
+                        <!-- English question text will be displayed here -->
+                    </div>
+                    <div class="hindi-text" id="question-text-hi">
+                        <!-- Hindi question text will be displayed here -->
+                    </div>
+                    
+                    <div class="options" id="options-container">
+                        <!-- Options will be generated here -->
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn" id="prev-btn">Previous</button>
+                        <button class="btn" id="next-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Page -->
+    <div id="result-page">
+        <div class="container">
+            <div class="result-card">
+                <div class="result-header">
+                    <h1>Test Results</h1>
+                    <p>Congratulations on completing the SSC CHSL Mock Test!</p>
+                </div>
+                
+                <div class="result-summary">
+                    <div class="summary-item">
+                        <h3>Candidate Name</h3>
+                        <p id="result-name">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Test ID</h3>
+                        <p id="result-test-id">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Time Taken</h3>
+                        <p id="result-time">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Total Score</h3>
+                        <p id="result-score">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Accuracy</h3>
+                        <p id="result-accuracy">-</p>
+                    </div>
+                    <div class="summary-item">
+                        <h3>Rank</h3>
+                        <p id="result-rank">-</p>
+                    </div>
+                </div>
+                
+                <div class="section-analysis">
+                    <h2>Section-wise Analysis</h2>
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <h3>Section A: English</h3>
+                            <ul>
+                                <li>Correct: <span id="section-a-correct">0</span></li>
+                                <li>Wrong: <span id="section-a-wrong">0</span></li>
+                                <li>Accuracy: <span id="section-a-accuracy">0%</span></li>
+                            </ul>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>Section B: Mathematics</h3>
+                            <ul>
+                                <li>Correct: <span id="section-b-correct">0</span></li>
+                                <li>Wrong: <span id="section-b-wrong">0</span></li>
+                                <li>Accuracy: <span id="section-b-accuracy">0%</span></li>
+                            </ul>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>Section C: Reasoning</h3>
+                            <ul>
+                                <li>Correct: <span id="section-c-correct">0</span></li>
+                                <li>Wrong: <span id="section-c-wrong">0</span></li>
+                                <li>Accuracy: <span id="section-c-accuracy">0%</span></li>
+                            </ul>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>Section D: General Awareness</h3>
+                            <ul>
+                                <li>Correct: <span id="section-d-correct">0</span></li>
+                                <li>Wrong: <span id="section-d-wrong">0</span></li>
+                                <li>Accuracy: <span id="section-d-accuracy">0%</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="answer-key">
+                    <h2>Answer Key</h2>
+                    <div id="answer-key-container">
+                        <!-- Answer key will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample questions data (in a real app, this would come from a server)
+        const questions = [
+            // Section A: English (Questions 1-25)
+            { id: 1, section: 'A', en: "Choose the correct synonym of 'Benevolent':", hi: "'Benevolent' का सही समानार्थक शब्द चुनें:", options: ["Kind", "Cruel", "Selfish", "Greedy"], correct: 0 },
+            { id: 2, section: 'A', en: "Identify the correct sentence:", hi: "सही वाक्य पहचानें:", options: ["She don't like apples", "She doesn't like apples", "She doesn't likes apples", "She don't likes apples"], correct: 1 },
+            // More questions would be added here...
+            
+            // Section B: Mathematics (Questions 26-50)
+            { id: 26, section: 'B', en: "What is 15% of 200?", hi: "200 का 15% क्या है?", options: ["15", "30", "25", "20"], correct: 1 },
+            { id: 27, section: 'B', en: "If a train travels 300 km in 5 hours, what is its speed?", hi: "यदि एक ट्रेन 5 घंटे में 300 किमी की यात्रा करती है, तो उसकी गति क्या है?", options: ["50 km/h", "60 km/h", "55 km/h", "65 km/h"], correct: 1 },
+            // More questions would be added here...
+            
+            // Section C: Reasoning (Questions 51-75)
+            { id: 51, section: 'C', en: "If all cats are animals, and some animals are pets, then:", hi: "यदि सभी बिल्लियाँ जानवर हैं, और कुछ जानवर पालतू हैं, तो:", options: ["All cats are pets", "Some cats are pets", "No cats are pets", "Cannot be determined"], correct: 3 },
+            { id: 52, section: 'C', en: "Complete the series: 2, 6, 12, 20, ?", hi: "श्रृंखला पूरी करें: 2, 6, 12, 20, ?", options: ["28", "30", "32", "36"], correct: 1 },
+            // More questions would be added here...
+            
+            // Section D: General Awareness (Questions 76-100)
+            { id: 76, section: 'D', en: "Who is the current Prime Minister of India?", hi: "भारत के वर्तमान प्रधानमंत्री कौन हैं?", options: ["Narendra Modi", "Rahul Gandhi", "Manmohan Singh", "Amit Shah"], correct: 0 },
+            { id: 77, section: 'D', en: "Which is the largest planet in our solar system?", hi: "हमारे सौर मंडल का सबसे बड़ा ग्रह कौन सा है?", options: ["Earth", "Jupiter", "Saturn", "Mars"], correct: 1 },
+            // More questions would be added here...
+        ];
+
+        // For demo purposes, let's add a few more sample questions to reach 100
+        for (let i = 3; i <= 25; i++) {
+            questions.push({ 
+                id: i, 
+                section: 'A', 
+                en: `Sample English question ${i}`, 
+                hi: `नमूना अंग्रेजी प्रश्न ${i}`, 
+                options: ["Option A", "Option B", "Option C", "Option D"], 
+                correct: i % 4 
+            });
+        }
+        
+        for (let i = 28; i <= 50; i++) {
+            questions.push({ 
+                id: i, 
+                section: 'B', 
+                en: `Sample Mathematics question ${i}`, 
+                hi: `नमूना गणित प्रश्न ${i}`, 
+                options: ["Option A", "Option B", "Option C", "Option D"], 
+                correct: i % 4 
+            });
+        }
+        
+        for (let i = 53; i <= 75; i++) {
+            questions.push({ 
+                id: i, 
+                section: 'C', 
+                en: `Sample Reasoning question ${i}`, 
+                hi: `नमूना तर्क प्रश्न ${i}`, 
+                options: ["Option A", "Option B", "Option C", "Option D"], 
+                correct: i % 4 
+            });
+        }
+        
+        for (let i = 78; i <= 100; i++) {
+            questions.push({ 
+                id: i, 
+                section: 'D', 
+                en: `Sample General Awareness question ${i}`, 
+                hi: `नमूना सामान्य जागरूकता प्रश्न ${i}`, 
+                options: ["Option A", "Option B", "Option C", "Option D"], 
+                correct: i % 4 
+            });
+        }
+
+        // Application state
+        let currentQuestion = 0;
+        let userAnswers = new Array(100).fill(null);
+        let startTime = null;
+        let timerInterval = null;
+        let timeElapsed = 0;
+
+        // DOM elements
+        const startPage = document.getElementById('start-page');
+        const testPage = document.getElementById('test-page');
+        const resultPage = document.getElementById('result-page');
+        const userForm = document.getElementById('user-form');
+        const candidateNameInput = document.getElementById('name');
+        const testIdInput = document.getElementById('test-id');
+        const candidateNameDisplay = document.getElementById('candidate-name-display');
+        const testIdDisplay = document.getElementById('test-id-display');
+        const currentSectionDisplay = document.getElementById('current-section');
+        const timerDisplay = document.getElementById('timer');
+        const currentQuestionNumDisplay = document.getElementById('current-question-num');
+        const questionTextEn = document.getElementById('question-text-en');
+        const questionTextHi = document.getElementById('question-text-hi');
+        const optionsContainer = document.getElementById('options-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuContent = document.getElementById('menu-content');
+        const submitBtn = document.getElementById('submit-test');
+        
+        // Result page elements
+        const resultName = document.getElementById('result-name');
+        const resultTestId = document.getElementById('result-test-id');
+        const resultTime = document.getElementById('result-time');
+        const resultScore = document.getElementById('result-score');
+        const resultAccuracy = document.getElementById('result-accuracy');
+        const resultRank = document.getElementById('result-rank');
+        const answerKeyContainer = document.getElementById('answer-key-container');
+
+        // Initialize the application
+        function init() {
+            // Generate question buttons for side menu
+            generateQuestionButtons();
+            
+            // Event listeners
+            userForm.addEventListener('submit', startTest);
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            menuToggle.addEventListener('click', toggleMenu);
+            submitBtn.addEventListener('click', submitTest);
+            
+            // Initially hide the menu on mobile
+            if (window.innerWidth <= 768) {
+                menuContent.style.display = 'none';
+            }
+        }
+
+        // Generate question buttons for the side menu
+        function generateQuestionButtons() {
+            const sections = ['A', 'B', 'C', 'D'];
+            
+            sections.forEach(section => {
+                const container = document.getElementById(`section-${section.toLowerCase()}-questions`);
+                container.innerHTML = '';
+                
+                // Questions for this section (25 per section)
+                const startId = (sections.indexOf(section) * 25) + 1;
+                const endId = startId + 24;
+                
+                for (let i = startId; i <= endId; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'question-btn';
+                    btn.textContent = i;
+                    btn.dataset.questionId = i - 1; // 0-based index
+                    
+                    btn.addEventListener('click', () => {
+                        goToQuestion(parseInt(btn.dataset.questionId));
+                    });
+                    
+                    container.appendChild(btn);
+                }
+            });
+        }
+
+        // Start the test
+        function startTest(e) {
+            e.preventDefault();
+            
+            const name = candidateNameInput.value.trim();
+            const testId = testIdInput.value;
+            
+            if (!name) {
+                alert('Please enter your name');
+                return;
+            }
+            
+            // Update displays
+            candidateNameDisplay.textContent = name;
+            testIdDisplay.textContent = testId;
+            
+            // Show test page, hide start page
+            startPage.style.display = 'none';
+            testPage.style.display = 'block';
+            
+            // Start timer
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Display first question
+            displayQuestion(currentQuestion);
+        }
+
+        // Update the timer display
+        function updateTimer() {
+            const now = new Date();
+            timeElapsed = Math.floor((now - startTime) / 1000);
+            
+            const hours = Math.floor(timeElapsed / 3600);
+            const minutes = Math.floor((timeElapsed % 3600) / 60);
+            const seconds = timeElapsed % 60;
+            
+            timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Display a question
+        function displayQuestion(index) {
+            const question = questions[index];
+            
+            // Update question number and section
+            currentQuestionNumDisplay.textContent = index + 1;
+            currentSectionDisplay.textContent = question.section;
+            
+            // Update question texts
+            questionTextEn.textContent = question.en;
+            questionTextHi.textContent = question.hi;
+            
+            // Clear options
+            optionsContainer.innerHTML = '';
+            
+            // Create option elements
+            question.options.forEach((option, i) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[index] === i) {
+                    optionElement.classList.add('selected');
+                }
+                
+                const label = document.createElement('div');
+                label.className = 'option-label';
+                label.textContent = String.fromCharCode(65 + i); // A, B, C, D
+                
+                const text = document.createElement('div');
+                text.className = 'option-text';
+                text.textContent = option;
+                
+                optionElement.appendChild(label);
+                optionElement.appendChild(text);
+                
+                optionElement.addEventListener('click', () => selectOption(i));
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = index === 0;
+            nextBtn.textContent = index === questions.length - 1 ? 'Finish' : 'Next';
+            
+            // Update question buttons in side menu
+            updateQuestionButtons();
+        }
+
+        // Select an option for the current question
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.toggle('selected', i === optionIndex);
+            });
+            
+            // Update question button in side menu
+            updateQuestionButtons();
+        }
+
+        // Update the question buttons in the side menu
+        function updateQuestionButtons() {
+            const buttons = document.querySelectorAll('.question-btn');
+            buttons.forEach((btn, i) => {
+                btn.classList.toggle('answered', userAnswers[i] !== null);
+                btn.classList.toggle('current', i === currentQuestion);
+            });
+        }
+
+        // Go to a specific question
+        function goToQuestion(index) {
+            if (index >= 0 && index < questions.length) {
+                currentQuestion = index;
+                displayQuestion(currentQuestion);
+                
+                // Hide menu on mobile after selection
+                if (window.innerWidth <= 768) {
+                    menuContent.style.display = 'none';
+                }
+            }
+        }
+
+        // Go to the previous question
+        function goToPreviousQuestion() {
+            if (currentQuestion > 0) {
+                goToQuestion(currentQuestion - 1);
+            }
+        }
+
+        // Go to the next question
+        function goToNextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                goToQuestion(currentQuestion + 1);
+            } else {
+                // Last question - show confirmation before submit
+                if (confirm('This is the last question. Would you like to submit your test?')) {
+                    submitTest();
+                }
+            }
+        }
+
+        // Toggle the side menu on mobile
+        function toggleMenu() {
+            if (menuContent.style.display === 'none') {
+                menuContent.style.display = 'block';
+            } else {
+                menuContent.style.display = 'none';
+            }
+        }
+
+        // Submit the test
+        function submitTest() {
+            if (!confirm('Are you sure you want to submit your test? You cannot change your answers after submission.')) {
+                return;
+            }
+            
+            // Stop timer
+            clearInterval(timerInterval);
+            
+            // Calculate results
+            const results = calculateResults();
+            
+            // Display results
+            displayResults(results);
+            
+            // Save results (in a real app, this would send to a server)
+            saveResults(results);
+            
+            // Show result page, hide test page
+            testPage.style.display = 'none';
+            resultPage.style.display = 'block';
+        }
+
+        // Calculate test results
+        function calculateResults() {
+            let correctCount = 0;
+            let wrongCount = 0;
+            let unansweredCount = 0;
+            
+            const sectionStats = {
+                'A': { correct: 0, wrong: 0, total: 25 },
+                'B': { correct: 0, wrong: 0, total: 25 },
+                'C': { correct: 0, wrong: 0, total: 25 },
+                'D': { correct: 0, wrong: 0, total: 25 }
+            };
+            
+            // Calculate correct/wrong answers
+            questions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                
+                if (userAnswer === null) {
+                    unansweredCount++;
+                } else if (userAnswer === question.correct) {
+                    correctCount++;
+                    sectionStats[question.section].correct++;
+                } else {
+                    wrongCount++;
+                    sectionStats[question.section].wrong++;
+                }
+            });
+            
+            // Calculate score (2 marks per correct, -0.5 per wrong)
+            const score = (correctCount * 2) - (wrongCount * 0.5);
+            const accuracy = correctCount / (correctCount + wrongCount) * 100;
+            
+            // Generate a random rank (in a real app, this would be calculated based on all test takers)
+            const rank = Math.floor(Math.random() * 1000) + 1;
+            
+            return {
+                name: candidateNameInput.value.trim(),
+                testId: testIdInput.value,
+                timeElapsed: timeElapsed,
+                correctCount,
+                wrongCount,
+                unansweredCount,
+                score: score.toFixed(1),
+                accuracy: accuracy.toFixed(1),
+                rank,
+                sectionStats
+            };
+        }
+
+        // Display the results
+        function displayResults(results) {
+            // Basic info
+            resultName.textContent = results.name;
+            resultTestId.textContent = results.testId;
+            
+            // Format time
+            const hours = Math.floor(results.timeElapsed / 3600);
+            const minutes = Math.floor((results.timeElapsed % 3600) / 60);
+            const seconds = results.timeElapsed % 60;
+            resultTime.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            
+            // Scores
+            resultScore.textContent = `${results.score}/200`;
+            resultAccuracy.textContent = `${results.accuracy}%`;
+            resultRank.textContent = `#${results.rank}`;
+            
+            // Section-wise analysis
+            document.getElementById('section-a-correct').textContent = results.sectionStats.A.correct;
+            document.getElementById('section-a-wrong').textContent = results.sectionStats.A.wrong;
+            document.getElementById('section-a-accuracy').textContent = 
+                `${(results.sectionStats.A.correct / (results.sectionStats.A.correct + results.sectionStats.A.wrong) * 100).toFixed(1)}%`;
+            
+            document.getElementById('section-b-correct').textContent = results.sectionStats.B.correct;
+            document.getElementById('section-b-wrong').textContent = results.sectionStats.B.wrong;
+            document.getElementById('section-b-accuracy').textContent = 
+                `${(results.sectionStats.B.correct / (results.sectionStats.B.correct + results.sectionStats.B.wrong) * 100).toFixed(1)}%`;
+            
+            document.getElementById('section-c-correct').textContent = results.sectionStats.C.correct;
+            document.getElementById('section-c-wrong').textContent = results.sectionStats.C.wrong;
+            document.getElementById('section-c-accuracy').textContent = 
+                `${(results.sectionStats.C.correct / (results.sectionStats.C.correct + results.sectionStats.C.wrong) * 100).toFixed(1)}%`;
+            
+            document.getElementById('section-d-correct').textContent = results.sectionStats.D.correct;
+            document.getElementById('section-d-wrong').textContent = results.sectionStats.D.wrong;
+            document.getElementById('section-d-accuracy').textContent = 
+                `${(results.sectionStats.D.correct / (results.sectionStats.D.correct + results.sectionStats.D.wrong) * 100).toFixed(1)}%`;
+            
+            // Generate answer key
+            generateAnswerKey();
+        }
+
+        // Generate the answer key with user answers and correct answers
+        function generateAnswerKey() {
+            answerKeyContainer.innerHTML = '';
+            
+            questions.forEach((question, index) => {
+                const answerItem = document.createElement('div');
+                answerItem.className = 'answer-item';
+                
+                const questionText = document.createElement('div');
+                questionText.className = 'answer-question';
+                questionText.textContent = `Q${index + 1}: ${question.en}`;
+                
+                const answerDetails = document.createElement('div');
+                answerDetails.className = 'answer-details';
+                
+                const userAnswerSpan = document.createElement('span');
+                userAnswerSpan.className = 'user-answer';
+                
+                if (userAnswers[index] === null) {
+                    userAnswerSpan.textContent = 'Not answered';
+                    userAnswerSpan.style.color = 'var(--text-muted)';
+                } else {
+                    const userAnswerText = `Your answer: ${String.fromCharCode(65 + userAnswers[index])}`;
+                    userAnswerSpan.textContent = userAnswerText;
+                    
+                    if (userAnswers[index] === question.correct) {
+                        userAnswerSpan.classList.add('correct');
+                    } else {
+                        userAnswerSpan.classList.add('wrong');
+                    }
+                }
+                
+                const correctAnswerSpan = document.createElement('span');
+                correctAnswerSpan.className = 'correct-answer';
+                correctAnswerSpan.textContent = `Correct answer: ${String.fromCharCode(65 + question.correct)}`;
+                
+                answerDetails.appendChild(userAnswerSpan);
+                answerDetails.appendChild(correctAnswerSpan);
+                
+                answerItem.appendChild(questionText);
+                answerItem.appendChild(answerDetails);
+                
+                answerKeyContainer.appendChild(answerItem);
+            });
+        }
+
+        // Save results (placeholder for API integration)
+        function saveResults(results) {
+            // In a real application, this would send data to Google Sheets or Airtable
+            console.log('Saving results:', results);
+            
+            // Example of what the API call might look like:
+            /*
+            fetch('https://api.airtable.com/v0/YOUR_BASE_ID/Results', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer YOUR_API_KEY',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    records: [{
+                        fields: {
+                            Name: results.name,
+                            'Test ID': results.testId,
+                            Score: results.score,
+                            Accuracy: results.accuracy,
+                            Rank: results.rank,
+                            'Time Taken': results.timeElapsed
+                        }
+                    }]
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Results saved successfully:', data))
+            .catch(error => console.error('Error saving results:', error));
+            */
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
